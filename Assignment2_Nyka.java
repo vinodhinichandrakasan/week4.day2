@@ -21,7 +21,7 @@ public class Assignment2_Nyka {
 		// TODO Auto-generated method stub
 				WebDriverManager.chromedriver().setup();
 				ChromeOptions options = new ChromeOptions();
-			    options.addArguments("--disable-notifications");
+			        options.addArguments("--disable-notifications");
 				ChromeDriver driver=new ChromeDriver(options);
 				driver.manage().window().maximize();
 				//driver implicit wait
@@ -84,7 +84,8 @@ public class Assignment2_Nyka {
 				WebElement ele3 = driver.findElement(By.className("css-acpm4k"));
 				driver.switchTo().frame(ele3);
 				String grandTotal=driver.findElement(By.xpath("//*[@class='value medium-strong']")).getText();
-				System.out.println("grandtotal value is"+grandTotal);
+				String total=grandTotal.substring(1, 4);
+				System.out.println("grandtotal value is"+total);
 				
 				// Click Proceed
 				Thread.sleep(3000);
@@ -95,6 +96,14 @@ public class Assignment2_Nyka {
 				Thread.sleep(5000);
 				String finalgrandtot=driver.findElement(By.xpath("//div[@class='payment-details-tbl grand-total-cell prl20']/div[2]/span")).getText();
 				System.out.println(finalgrandtot);
+				if(finalgrandtot.contains(total))
+				{
+					System.out.println("the total prices are same");
+				}
+				else
+				{
+					System.out.println("there is a variation in the grandtotal");
+				}
 				driver.quit();
 
 	}
