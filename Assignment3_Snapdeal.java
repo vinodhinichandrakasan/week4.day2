@@ -1,15 +1,19 @@
 package week4.day2;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 
 
@@ -17,11 +21,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Assignment3_Snapdeal {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, IOException {
 		// TODO Auto-generated method stub
 		//Driver setup
 				WebDriverManager.chromedriver().setup();
-				WebDriver driver=new ChromeDriver();
+				ChromeOptions option=new ChromeOptions();
+				option.addArguments("--disable-notifications");//--disable-notifications
+				ChromeDriver driver=new ChromeDriver(option);
 		//browser maximize
 				driver.manage().window().maximize();
 		//browser implicit wait
@@ -73,8 +79,8 @@ public class Assignment3_Snapdeal {
 				act.moveToElement(result).perform();
 				
 		//click on quick view
-				driver.findElement(By.xpath("//div[@class='product-tuple-image ']/div[2]/div")).click();
-				
+				driver.findElement(By.xpath("//section[@class='js-section clearfix dp-widget dp-fired']/div/div[2]/div/div")).click();
+				Thread.sleep(3000);
 				driver.findElement(By.xpath("//*[@class='close close1 marR10']")).click();
 		//window handles		
 				result.click();
@@ -89,7 +95,9 @@ public class Assignment3_Snapdeal {
 				System.out.println(deal);
 				
 		//	Take snapshot of the shoe
-				
+				File source=driver.getScreenshotAs(OutputType.FILE);
+				File Destination=new File("C:/Users/HP/Desktop/snap.jpg");
+				FileUtils.copyFile(source, Destination);
 				
 		//close child window
 				driver.close();
